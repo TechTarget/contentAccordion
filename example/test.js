@@ -4,7 +4,6 @@ $(document).on('ready', function() {
 
   // init contentAccordion component
   $('.contentAccordion').contentAccordion({
-    eqOfOpenPanel: 0,
     alwaysOnePanelOpen: true
   });
 

@@ -19,7 +19,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
 
   # default plugin options
   defaults =
-    eqOfOpenPanel: 0,
+    indexOfOpenPanel: 0,
     alwaysOnePanelOpen: true,
 
   # plugin constructor
@@ -31,7 +31,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       @_defaults = defaults
       @_name = pluginName
       @items = null
-      @currentItem = @options.eqOfOpenPanel
+      @currentItem = @options.indexOfOpenPanel #@todo, check if greater than count and default to 0
       @init()
 
     # initialize plugin
@@ -56,8 +56,8 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       @items
 
     # 'selects' an item by applying 'active' class
-    selectItem: (eq) ->
-      @getItems().removeClass('active').eq(eq).addClass 'active'
+    selectItem: (index) ->
+      @getItems().removeClass('active').eq(index).addClass 'active'
 
 
   # lightweight wrapper around the constructor that prevents multiple instantiations

@@ -1,0 +1,9 @@
+- var items = ['Item Title 1', 'Item Title 2', 'Item Title 3', 'Item Title 4', 'Item Title 5']
+
+.contentAccordion
+  for item in items
+    .contentAccordionItem
+      .contentAccordionItemTitle #{item}
+        span.contentAccordionItemToggleIcon
+      .contentAccordionItemBody
+        p I am the body of the accordion

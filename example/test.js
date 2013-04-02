@@ -4,7 +4,7 @@ $(document).on('ready', function() {
 
   // init pluginName component
   $('.contentAccordion').contentAccordion({
-    property: true
+    alwaysOnePanelOpen: true
   });
 
 });

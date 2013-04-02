@@ -19,25 +19,47 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
 
   # default plugin options
   defaults =
-    property: true
+    alwaysOnePanelOpen: true
 
   # plugin constructor
   class Plugin
 
     constructor: (@element, options) ->
+      @el = $(@element)
       @options = $.extend({}, defaults, options)
       @_defaults = defaults
       @_name = pluginName
-      @el = $(@element)
+      @items = null
+      @currentItem = 0
       @init()
 
     # initialize plugin
     init: ->
-      return true
 
-    # another method
-    foo: () ->
-      return false
+      # cache items
+      items = @getItems()
+
+      # apply 'active' class to first item
+      items.eq(0).addClass 'active'
+
+      # bind click handler to items
+      self = this
+      eq = undefined
+      items.on 'click', '.contentAccordionItemTitle', (e) ->
+        e.preventDefault()
+        eq = $(this).parent().index()
+        self.selectItem eq
+
+    # returns jq collection of tab elements
+    # will return from cache if called previously
+    getItems: ->
+      @items = @el.find('.contentAccordionItem') unless @items
+      @items
+
+    # 'selects' an item by applying 'active' class to parent element
+    selectItem: (eq) ->
+      @getItems().removeClass('active').eq(eq).addClass 'active'
+
 
   # lightweight wrapper around the constructor that prevents multiple instantiations
   $.fn[pluginName] = (options) ->

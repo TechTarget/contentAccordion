@@ -3,10 +3,10 @@ html(lang='en')
   head
     meta(charset='utf-8')
     title contentAccordion Component Tests
-    link(rel='stylesheet', href='css/style.css', media='screen')
+    link(rel='stylesheet', href='style.css', media='screen')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
     script(src='../contentAccordion.js')
-    script(src='javascript/test.js')
+    script(src='test.js')
   body
     #micrositeContainer
       #micrositeContainerInner
@@ -19,7 +19,9 @@ html(lang='en')
               include contentAccordion
             #micrositeContentColumnLeft
               h2 Left Col
+              include contentAccordion
             #micrositeContentColumnRight
               h2 Right Col
+              include contentAccordion
           #micrositeFooter
             h2 Footer

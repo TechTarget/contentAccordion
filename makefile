@@ -18,12 +18,6 @@ endef
 
 default:
 
-	@echo "* compiling jade templates"
-	@jade -D ./example/*.jade
-
-	@echo "* compiling coffeescript..."
-	@coffee -p ${SCRIPT_NAME}.coffee > ${SCRIPT_NAME}.js
-
 	@echo "* linting..."
 	@jshint ${SCRIPT_NAME}.js --show-non-errors
 
@@ -37,3 +31,14 @@ default:
 
 	@echo "* gzip test..."
 	@$(FILESIZE_CHECK)
+
+compile:
+
+	@echo "* compiling jade templates"
+	@jade -P ./example/index.jade
+
+	@echo "* compiling sass..."
+	@sass ./example/sass/main.scss ./example/style.css
+
+	@echo "* compiling coffeescript..."
+	@coffee -p ${SCRIPT_NAME}.coffee > ${SCRIPT_NAME}.js

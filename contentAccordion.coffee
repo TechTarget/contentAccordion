@@ -19,7 +19,8 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
 
   # default plugin options
   defaults =
-    alwaysOnePanelOpen: true
+    eqOfOpenPanel: 0,
+    alwaysOnePanelOpen: true,
 
   # plugin constructor
   class Plugin
@@ -30,7 +31,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       @_defaults = defaults
       @_name = pluginName
       @items = null
-      @currentItem = 0
+      @currentItem = @options.eqOfOpenPanel
       @init()
 
     # initialize plugin
@@ -39,16 +40,14 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       # cache items
       items = @getItems()
 
-      # apply 'active' class to first item
-      items.eq(0).addClass 'active'
+      # apply 'active' class to first item or overrided item
+      items.eq(@currentItem).addClass 'active'
 
       # bind click handler to items
-      self = this
-      eq = undefined
-      items.on 'click', '.contentAccordionItemTitle', (e) ->
+      items.on 'click', '.contentAccordionItemTitle', (e) =>
         e.preventDefault()
-        eq = $(this).parent().index()
-        self.selectItem eq
+        @currentItem = $(e.currentTarget).parent().index()
+        @selectItem @currentItem
 
     # returns jq collection of tab elements
     # will return from cache if called previously
@@ -56,7 +55,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       @items = @el.find('.contentAccordionItem') unless @items
       @items
 
-    # 'selects' an item by applying 'active' class to parent element
+    # 'selects' an item by applying 'active' class
     selectItem: (eq) ->
       @getItems().removeClass('active').eq(eq).addClass 'active'
 

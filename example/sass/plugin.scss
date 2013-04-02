@@ -13,10 +13,17 @@ $title-bgColor-off: #666;
 .contentAccordionItem {
   margin: 0 0 1px;
 
+  -webkit-transition: background .3s linear;
+
   &:last-child {
     margin: 0;
   }
 
+}
+
+.contentAccordionItemBody {
+
+  -webkit-transition: background .3s linear;
 }
 
 .contentAccordionItemTitle {

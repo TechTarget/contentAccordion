@@ -15,6 +15,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
 
   pluginName = 'contentAccordion';
   defaults = {
+    eqOfOpenPanel: 0,
     alwaysOnePanelOpen: true
   };
   Plugin = (function() {
@@ -25,21 +26,20 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       this._defaults = defaults;
       this._name = pluginName;
       this.items = null;
-      this.currentItem = 0;
+      this.currentItem = this.options.eqOfOpenPanel;
       this.init();
     }
 
     Plugin.prototype.init = function() {
-      var eq, items, self;
+      var items,
+        _this = this;
 
       items = this.getItems();
-      items.eq(0).addClass('active');
-      self = this;
-      eq = void 0;
+      items.eq(this.currentItem).addClass('active');
       return items.on('click', '.contentAccordionItemTitle', function(e) {
         e.preventDefault();
-        eq = $(this).parent().index();
-        return self.selectItem(eq);
+        _this.currentItem = $(e.currentTarget).parent().index();
+        return _this.selectItem(_this.currentItem);
       });
     };
 

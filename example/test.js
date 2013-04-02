@@ -2,8 +2,9 @@ $(document).on('ready', function() {
 
   'use strict';
 
-  // init pluginName component
+  // init contentAccordion component
   $('.contentAccordion').contentAccordion({
+    eqOfOpenPanel: 0,
     alwaysOnePanelOpen: true
   });
 

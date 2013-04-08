@@ -1,0 +1,68 @@
+@import "compass/css3";
+
+// accordion defaults
+$border-color: #ccc;
+$title-color-on: #fff;
+$title-color-off: #fff;
+$title-bgColor-on: #007cbe;
+$title-bgColor-off: #666;
+$body-bgColor: #fff;
+
+.contentAccordion {
+  border: 1px solid $border-color;
+  margin: 0 0 25px;
+
+  .contentAccordionItem {
+    margin: 0 0 1px;
+
+    &:last-child {
+      margin: 0;
+    }
+
+    .contentAccordionItemTitle {
+      background-color: $title-bgColor-off;
+      color: $title-color-off;
+      padding: 3px 10px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .contentAccordionItemToggleIcon {
+      display: block;
+      height: 10px;
+      width: 10px;
+      background-color: #fff;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+    }
+
+    .contentAccordionItemBody {
+      @include transition(display .3s linear);
+      background-color: $body-bgColor;
+      display: none;
+      padding: 10px;
+    }
+
+  }
+
+  // for "active" states
+  .active {
+
+    .contentAccordionItemBody {
+      display: block;
+    }
+
+    .contentAccordionItemTitle {
+      color: $title-color-on;
+      background-color: $title-bgColor-on;
+      cursor: default;
+    }
+
+    .contentAccordionItemToggleIcon {
+      background-color: #333;
+    }
+
+  }
+
+}

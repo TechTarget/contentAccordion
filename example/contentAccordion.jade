@@ -5,5 +5,11 @@
     .contentAccordionItem
       .contentAccordionItemTitle #{item}
         span.contentAccordionItemToggleIcon
-      .contentAccordionItemBody
-        p I am the body of the accordion
+      .contentAccordionItemBody.oneColList
+        ul
+          - for (var i = 0; i < 4; ++i) {
+            li
+              h4: a(href='replaceMe') @Html.Ipsum.h4(5)
+              @Html.Ipsum.p(1, 8)
+              p: a.viewNow(href='replaceMe') &gt; View Now
+          - }

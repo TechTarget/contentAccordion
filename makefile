@@ -38,7 +38,7 @@ compile:
 	@jade -P ./example/index.jade
 
 	@echo "* compiling sass..."
-	@sass ./example/sass/screen.scss ./example/screen.css
+	@sass ./example/sass/style.scss ./example/style.css
 
 	@echo "* compiling coffeescript..."
 	@coffee -p ${SCRIPT_NAME}.coffee > ${SCRIPT_NAME}.js

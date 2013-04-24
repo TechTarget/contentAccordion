@@ -1,6 +1,7 @@
 ###!
-contentAccordion v0.0.1 (http://okize.github.com/)
-Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/licenses/mit-license.php
+contentAccordion v1.0.1 (http://okize.github.com/)
+Copyright (c) 2013 | Licensed under the MIT license
+http://www.opensource.org/licenses/mit-license.php
 ###
 
 ((factory) ->
@@ -25,13 +26,14 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
   # plugin constructor
   class Plugin
 
+    #@todo, check if currentItem greater than count and default to 0
     constructor: (@element, options) ->
       @el = $(@element)
       @options = $.extend({}, defaults, options)
       @_defaults = defaults
       @_name = pluginName
       @items = null
-      @currentItem = @options.indexOfOpenPanel #@todo, check if greater than count and default to 0
+      @currentItem = @options.indexOfOpenPanel
       @init()
 
     # initialize plugin
@@ -40,7 +42,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       # cache items
       items = @getItems()
 
-      # apply 'active' class to first item or overrided item
+      # apply 'active' class to first item or overridden item
       items.eq(@currentItem).addClass 'active'
 
       # bind click handler to items
@@ -60,7 +62,7 @@ Copyright (c) 2013 | Licensed under the MIT license - http://www.opensource.org/
       @getItems().removeClass('active').eq(index).addClass 'active'
 
 
-  # lightweight wrapper around the constructor that prevents multiple instantiations
+  # wrapper around the constructor that prevents multiple instantiations
   $.fn[pluginName] = (options) ->
     @each ->
       if !$.data(@, 'plugin_#{pluginName}')

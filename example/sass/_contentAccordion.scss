@@ -1,12 +1,14 @@
-@import "compass/css3";
+@import "compass/css3/transition";
 
 // accordion defaults
-$border-color: red;
+$border-color: #ccc;
 $title-color-on: #fff;
 $title-color-off: #fff;
 $title-bgColor-on: #007cbe;
 $title-bgColor-off: #666;
 $body-bgColor: #fff;
+$open-image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAICAYAAADJEc7MAAAAfUlEQVR42oXOsQ2AMAwEQEdiJgZgABZgBCqKTAAjMAIFNSsxAQ0UKcwjPbLlAl66InZesqjqChcMID8G/l2fR1HL+FGa1FKeQQafGZIrJM588rvsw2KBipaw60H8KV04e6M3hX/EiqaFE2JO7sQXowYOtRycyWeRatipBoluITR/Ld5BhDgAAAAASUVORK5CYII=";
+$close-image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAADCAMAAACtb39mAAAAElBMVEX+/v7////9/f37+/v6+vr8/Pz+o0ZmAAAAHElEQVQIHWNgYWJiYoACIJOZgYERFTAAhZABKwAFDgArA6K23gAAAABJRU5ErkJggg==";
 
 .contentAccordion {
   border: 1px solid $border-color;
@@ -28,17 +30,16 @@ $body-bgColor: #fff;
     }
 
     .contentAccordionItemToggleIcon {
+      background: url($close-image) no-repeat 0 0;
       display: block;
-      height: 10px;
-      width: 10px;
-      background-color: #fff;
+      height: 3px;
+      width: 16px;
       position: absolute;
-      top: 8px;
+      top: 13px;
       right: 10px;
     }
 
     .contentAccordionItemBody {
-      @include transition(display .3s linear);
       background-color: $body-bgColor;
       display: none;
       padding: 10px;
@@ -60,7 +61,10 @@ $body-bgColor: #fff;
     }
 
     .contentAccordionItemToggleIcon {
-      background-color: #333;
+      background-image: url($open-image);
+      height: 8px;
+      width: 14px;
+      top: 10px;
     }
 
   }

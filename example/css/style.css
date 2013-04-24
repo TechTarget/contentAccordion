@@ -198,7 +198,7 @@ a:focus {
 }
 
 .contentAccordion {
-  border: 1px solid red;
+  border: 1px solid #cccccc;
   margin: 0 0 25px;
 }
 .contentAccordion .contentAccordionItem {
@@ -215,20 +215,15 @@ a:focus {
   position: relative;
 }
 .contentAccordion .contentAccordionItem .contentAccordionItemToggleIcon {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAADCAMAAACtb39mAAAAElBMVEX+/v7////9/f37+/v6+vr8/Pz+o0ZmAAAAHElEQVQIHWNgYWJiYoACIJOZgYERFTAAhZABKwAFDgArA6K23gAAAABJRU5ErkJggg==") no-repeat 0 0;
   display: block;
-  height: 10px;
-  width: 10px;
-  background-color: #fff;
+  height: 3px;
+  width: 16px;
   position: absolute;
-  top: 8px;
+  top: 13px;
   right: 10px;
 }
 .contentAccordion .contentAccordionItem .contentAccordionItemBody {
-  -webkit-transition: display 0.3s linear;
-  -moz-transition: display 0.3s linear;
-  -ms-transition: display 0.3s linear;
-  -o-transition: display 0.3s linear;
-  transition: display 0.3s linear;
   background-color: white;
   display: none;
   padding: 10px;
@@ -242,10 +237,13 @@ a:focus {
   cursor: default;
 }
 .contentAccordion .active .contentAccordionItemToggleIcon {
-  background-color: #333;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAICAYAAADJEc7MAAAAfUlEQVR42oXOsQ2AMAwEQEdiJgZgABZgBCqKTAAjMAIFNSsxAQ0UKcwjPbLlAl66InZesqjqChcMID8G/l2fR1HL+FGa1FKeQQafGZIrJM588rvsw2KBipaw60H8KV04e6M3hX/EiqaFE2JO7sQXowYOtRycyWeRatipBoluITR/Ld5BhDgAAAAASUVORK5CYII=");
+  height: 8px;
+  width: 14px;
+  top: 10px;
 }
 
-/* copy these along wih content tabs since they're used in the panel views */
+/* copy these along with content tabs since they're used in the panel views */
 .mediaBlock, .mediaBlockContent {
   overflow: hidden;
   _overflow: visible;

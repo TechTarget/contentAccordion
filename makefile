@@ -30,8 +30,8 @@ default:
 	@echo "* compiling coffeescript..."
 	@coffee -p -l ${SCRIPT_NAME}.coffee > ${SCRIPT_NAME}.js
 
-	@echo "* linting javascript..."
-	@jshint ${SCRIPT_NAME}.js --show-non-errors
+	# @echo "* linting javascript..."
+	# @jshint ${SCRIPT_NAME}.js --show-non-errors
 
 	@echo "* minifying..."
 	@uglifyjs ${SCRIPT_NAME}.js \

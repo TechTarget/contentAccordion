@@ -6,7 +6,10 @@ A plugin for creating an accordion style content viewer.
 
 ## Options
 
-There are no options for this component at this time.
+Option | Description
+--- | ---
+indexOfOpenItem | default is set to 0. This number dictates which 'panel' is open by default. The 'panel' numbering starts with 0.
+maintainState | boolean; default is set to false. If set to true the accordion will maintain it's state (which panel is open) on refresh.
 
 ## The Markup
 

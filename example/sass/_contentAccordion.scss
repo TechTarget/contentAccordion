@@ -70,3 +70,12 @@ $close-image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAADCAMAAACtb39
   }
 
 }
+
+// should be better way to write this!
+.allCollapsible {
+  .active {
+    .contentAccordionItemTitle {
+      cursor: pointer;
+    }
+  }
+}

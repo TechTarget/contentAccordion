@@ -5,8 +5,24 @@ $(document).on('ready', function() {
   $('body *').inlineIpsum({token: '@'});
 
   // init contentAccordion component
-  $('.contentAccordion').contentAccordion({
-    alwaysOnePanelOpen: true
+  $('.contentAccordion').eq(0).contentAccordion({
+    maintainState: true,
+    allCollapsible: true,
+    activeItem: 0
+  });
+
+  // init contentAccordion component
+  $('.contentAccordion').eq(1).contentAccordion({
+    maintainState: false,
+    allCollapsible: true,
+    activeItem: 0
+  });
+
+  // init contentAccordion component
+  $('.contentAccordion').eq(2).contentAccordion({
+    maintainState: false,
+    allCollapsible: true,
+    activeItem: 0
   });
 
 });

@@ -243,6 +243,10 @@ a:focus {
   top: 10px;
 }
 
+.allCollapsible .active .contentAccordionItemTitle {
+  cursor: pointer;
+}
+
 /* copy these along with content tabs since they're used in the panel views */
 .mediaBlock, .mediaBlockContent {
   overflow: hidden;

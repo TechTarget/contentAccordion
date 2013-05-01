@@ -1,5 +1,5 @@
 /*!
-contentAccordion v1.0.2 (http://okize.github.com/)
+contentAccordion v1.0.3 (http://okize.github.com/)
 Copyright (c) 2013 | Licensed under the MIT license
 http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,8 +18,10 @@ http://www.opensource.org/licenses/mit-license.php
 
     pluginName = 'contentAccordion';
     defaults = {
-      indexOfOpenItem: 0,
-      maintainState: false
+      maintainState: false,
+      allCollapsible: false,
+      activeItem: 0,
+      allowDataAttrOverride: false
     };
     Accordion = (function() {
       function Accordion(element, options) {
@@ -29,28 +31,72 @@ http://www.opensource.org/licenses/mit-license.php
         this._defaults = defaults;
         this._name = pluginName;
         this.items = null;
-        this.activeItem = this.options.indexOfOpenItem;
+        this.activeItem = this.options.activeItem;
         this.stateKey = 'accordionState';
         this.hashObject = null;
         this.init();
       }
 
       Accordion.prototype.init = function() {
-        var items,
+        var hashState, items,
           _this = this;
 
-        if (this.options.maintainState && (this.getStateFromHash() != null)) {
-          this.updateState(this.activeItem);
-        }
         items = this.getItems();
-        if (this.activeItem >= items.length) {
-          this.activeItem = 0;
+        if (this.options.allCollapsible) {
+          this.el.addClass('allCollapsible');
         }
-        items.eq(this.activeItem).addClass('active');
+        if (this.options.maintainState) {
+          hashState = this.getStateFromHash();
+          if (hashState !== null) {
+            this.activeItem = hashState;
+          }
+        }
+        if (this.options.allowDataAttrOverride) {
+          items.each(function(i) {
+            if (items.eq(i).data('accordionOpen') === true) {
+              _this.activeItem = i;
+            }
+          });
+        }
+        this.selectItem(this.activeItem);
         return items.on('click', '.contentAccordionItemTitle', function(e) {
           e.preventDefault();
           return _this.updateState($(e.currentTarget).parent().index());
         });
+      };
+
+      Accordion.prototype.getItems = function() {
+        if (!this.items) {
+          this.items = this.el.find('.contentAccordionItem');
+        }
+        return this.items;
+      };
+
+      Accordion.prototype.selectItem = function(eq) {
+        var item, items;
+
+        items = this.getItems();
+        item = items.eq(eq);
+        if (eq === -1) {
+          items.removeClass('active');
+        } else if (item.hasClass('active') && this.options.allCollapsible) {
+          item.removeClass('active');
+          eq = -1;
+        } else {
+          items.removeClass('active');
+          item.addClass('active');
+        }
+        return this.activeItem = eq;
+      };
+
+      Accordion.prototype.updateState = function(eq) {
+        if (eq !== -1) {
+          this.selectItem(eq);
+        }
+        if (this.options.maintainState) {
+          this.updateHash(eq);
+        }
+        return this.activeItem = eq;
       };
 
       Accordion.prototype.getStateFromHash = function() {
@@ -64,7 +110,7 @@ http://www.opensource.org/licenses/mit-license.php
         if (!state) {
           return null;
         }
-        return this.activeItem = this.hashObject[this.stateKey];
+        return parseInt(this.hashObject[this.stateKey], 10);
       };
 
       Accordion.prototype.getHashObject = function() {
@@ -112,25 +158,6 @@ http://www.opensource.org/licenses/mit-license.php
 
       Accordion.prototype.setUrlHash = function(hash) {
         return window.location.hash = hash;
-      };
-
-      Accordion.prototype.getItems = function() {
-        if (!this.items) {
-          this.items = this.el.find('.contentAccordionItem');
-        }
-        return this.items;
-      };
-
-      Accordion.prototype.selectItem = function(eq) {
-        if (this.options.maintainState) {
-          this.updateHash(eq);
-        }
-        return this.getItems().removeClass('active').eq(eq).addClass('active');
-      };
-
-      Accordion.prototype.updateState = function(eq) {
-        this.activeItem = eq;
-        return this.selectItem(eq);
       };
 
       return Accordion;

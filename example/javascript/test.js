@@ -8,21 +8,22 @@ $(document).on('ready', function() {
   $('.contentAccordion').eq(0).contentAccordion({
     maintainState: true,
     allCollapsible: true,
-    activeItem: 0
+    activeItem: 1
   });
 
   // init contentAccordion component
   $('.contentAccordion').eq(1).contentAccordion({
     maintainState: false,
-    allCollapsible: true,
-    activeItem: 0
+    allCollapsible: false,
+    allowDataAttrOverride: true,
+    activeItem: 2
   });
 
   // init contentAccordion component
   $('.contentAccordion').eq(2).contentAccordion({
     maintainState: false,
     allCollapsible: true,
-    activeItem: 0
+    activeItem: -1
   });
 
 });

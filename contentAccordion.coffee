@@ -1,5 +1,5 @@
 ###!
-contentAccordion v1.0.2 (http://okize.github.com/)
+contentAccordion v1.0.3 (http://okize.github.com/)
 Copyright (c) 2013 | Licensed under the MIT license
 http://www.opensource.org/licenses/mit-license.php
 ###
@@ -20,8 +20,10 @@ http://www.opensource.org/licenses/mit-license.php
 
   # default plugin options
   defaults =
-    indexOfOpenItem: 0, # which accordion item will be open on load
     maintainState: false # manages which item is active through url hashes
+    allCollapsible: false # allows all sections to be closed at same time
+    activeItem: 0 # index of which accordion is open; -1 for all closed
+    allowDataAttrOverride: false
 
   # plugin constructor
   class Accordion
@@ -33,7 +35,7 @@ http://www.opensource.org/licenses/mit-license.php
       @_defaults = defaults
       @_name = pluginName
       @items = null
-      @activeItem = @options.indexOfOpenItem
+      @activeItem = @options.activeItem
       @stateKey = 'accordionState'
       @hashObject = null
       @init()
@@ -41,33 +43,75 @@ http://www.opensource.org/licenses/mit-license.php
     # plugin initializer
     init: ->
 
-      # will update the component state if passed via url hash
-      @updateState(@activeItem) if @options.maintainState and @getStateFromHash()?
-
-      # cache items
       items = @getItems()
 
-      # if the currentItem, as set in the options, is greater than the
-      # total count of items, set it to the first item
-      @activeItem = 0 if @activeItem >= items.length
+      # add class to container when all sections can be collapsed
+      @el.addClass('allCollapsible') if @options.allCollapsible
 
-      # apply 'active' class to first item or overridden item
-      items.eq(@activeItem).addClass('active')
+      # if accordion maintains state, get active item from url
+      if @options.maintainState
+        hashState = @getStateFromHash()
+        if hashState != null
+          @activeItem = hashState
+
+      # inline data attribute override
+      if @options.allowDataAttrOverride
+        items.each (i) =>
+          if items.eq(i).data('accordionOpen') is true
+            @activeItem = i
+            return
+
+      # select the active section
+      @selectItem(@activeItem)
 
       # bind click handler to items
       items.on 'click', '.contentAccordionItemTitle', (e) =>
         e.preventDefault()
         @updateState( $(e.currentTarget).parent().index() )
 
+    # returns jq collection of accordion items
+    # will return from cache if called previously
+    getItems: ->
+
+      @items = @el.find('.contentAccordionItem') unless @items
+      @items
+
+    # 'selects' an item by applying 'active' class
+    selectItem: (eq) ->
+
+      items = @getItems()
+      item = items.eq(eq)
+
+      # if -1 then all sections should be collapsed
+      if eq == -1
+        items.removeClass('active')
+      else if item.hasClass('active') and @options.allCollapsible
+        item.removeClass('active')
+        eq = -1
+      else
+        items.removeClass('active')
+        item.addClass('active')
+
+      @activeItem = eq
+
+    # updates the state of the component
+    updateState: (eq) ->
+
+      # if -1 then every section should be closed
+      @selectItem(eq) if eq != -1
+      @updateHash(eq) if @options.maintainState
+      @activeItem = eq
+
     # checks if there's a hash for tab state maintenance
-    # if there is, set activeTab var to hash state
     getStateFromHash: ->
 
       @hashObject = @getHashObject()
       return null if !@hashObject
+
       state = @hashObject[@stateKey] ? null
       return null if !state
-      @activeItem = @hashObject[@stateKey]
+
+      return parseInt(@hashObject[@stateKey], 10)
 
     # returns null if no hashes, otherwise returns object created from hash
     getHashObject: ->
@@ -105,7 +149,7 @@ http://www.opensource.org/licenses/mit-license.php
       @hashObject[@stateKey] = eq
       @setUrlHash(@buildHashObject())
 
-    # caches the hash from the current window and returns an object of the hash
+    # returns the hash from the current window or null
     getUrlHash: ->
 
       if window.location.hash then window.location.hash.substring(1) else null
@@ -114,25 +158,6 @@ http://www.opensource.org/licenses/mit-license.php
     setUrlHash: (hash) ->
 
       window.location.hash = hash
-
-    # returns jq collection of accordion items
-    # will return from cache if called previously
-    getItems: ->
-
-      @items = @el.find('.contentAccordionItem') unless @items
-      @items
-
-    # 'selects' an item by applying 'active' class
-    selectItem: (eq) ->
-
-      @updateHash(eq) if (@options.maintainState)
-      @getItems().removeClass('active').eq(eq).addClass('active')
-
-    # updates the state of the component
-    updateState: (eq) ->
-
-      @activeItem = eq
-      @selectItem(eq)
 
   # wrapper around the constructor that prevents multiple instantiations
   $.fn[pluginName] = (options) ->

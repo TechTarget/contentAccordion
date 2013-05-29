@@ -1,4 +1,6 @@
 {
+  "boss": true,
+  "eqnull": true,
   "curly": true,
   "eqeqeq": true,
   "latedef": true,

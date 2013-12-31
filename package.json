@@ -1,6 +1,7 @@
 {
   "name": "contentAccordion",
-  "main": "contentAccordion",
+  "private": true,
+  "main": "contentAccordion.js",
   "description": "jQuery plugin for a content accordion",
   "version": "1.0.3",
   "author": "Morgan Wigmanich <okize123@gmail.com> (http://github.com/okize)",

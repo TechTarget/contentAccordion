@@ -1,5 +1,6 @@
 /*!
-contentAccordion v1.0.3 (http://okize.github.com/)
+contentAccordion v1.0.3 (https://github.com/TechTarget/contentAccordion)
+Author: Morgan Wigmanich <okize123@gmail.com> (http://github.com/okize)
 Copyright (c) 2013 | Licensed under the MIT license
 http://www.opensource.org/licenses/mit-license.php
 */
@@ -15,7 +16,6 @@ http://www.opensource.org/licenses/mit-license.php
   })(function($) {
     'use strict';
     var Accordion, defaults, pluginName;
-
     pluginName = 'contentAccordion';
     defaults = {
       maintainState: false,
@@ -40,7 +40,6 @@ http://www.opensource.org/licenses/mit-license.php
       Accordion.prototype.init = function() {
         var hashState, items,
           _this = this;
-
         items = this.getItems();
         if (this.options.allCollapsible) {
           this.el.addClass('allCollapsible');
@@ -74,7 +73,6 @@ http://www.opensource.org/licenses/mit-license.php
 
       Accordion.prototype.selectItem = function(eq) {
         var item, items;
-
         items = this.getItems();
         item = items.eq(eq);
         if (eq === -1) {
@@ -101,7 +99,6 @@ http://www.opensource.org/licenses/mit-license.php
 
       Accordion.prototype.getStateFromHash = function() {
         var state, _ref;
-
         this.hashObject = this.getHashObject();
         if (!this.hashObject) {
           return null;
@@ -115,7 +112,6 @@ http://www.opensource.org/licenses/mit-license.php
 
       Accordion.prototype.getHashObject = function() {
         var arg, args, arr, hash, item, _i, _len;
-
         hash = this.getUrlHash();
         if (!hash) {
           return null;
